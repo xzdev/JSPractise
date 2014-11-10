@@ -4,3 +4,4 @@ The site contains code that I wrote for fun. It is not necessary the best practi
 The code is just my flavor of JavaScript.
 
 - Sudoku Puzzle Solver
+- Calculate 24 with 4 digit numbers
