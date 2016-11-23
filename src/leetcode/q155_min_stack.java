@@ -1,36 +1,43 @@
 public class MinStack {
 
-    private Stack stack;
-    private Stack minStack;
+    private Stack<Integer> minStack;
+    private int minValue;
+
     /** initialize your data structure here. */
     public MinStack() {
-        this.stack = new Stack();
-        this.minStack = new Stack();
+        this.minStack = new Stack<>();
+        this.minValue = Integer.MAX_VALUE;
     }
     
     public void push(int x) {
-        if (this.stack.empty()) {
+        if (this.minStack.empty()) {
             this.minStack.push(Integer.valueOf(x));
+            this.minValue = x;
         } else {
             int min = this.getMin();
-            this.minStack.push(Integer.valueOf(Math.min(min, x)));
+            if (x <= min) {
+                this.minStack.push(min);
+                this.minValue = x;
+            }
         }
-        this.stack.push(Integer.valueOf(x));
+        this.minStack.push(Integer.valueOf(x));
     }
     
     public void pop() {
-        this.stack.pop();
+        if (this.top() == this.minValue) {
+            // pop extra min and reset min to last min
+            this.minStack.pop();
+            this.minValue = this.minStack.peek();
+        }
         this.minStack.pop();
     }
     
     public int top() {
-        Integer top = (Integer) this.stack.peek(); 
-        return top.intValue();
+        return this.minStack.peek(); 
     }
     
     public int getMin() {
-        Integer top = (Integer) this.minStack.peek(); 
-        return top.intValue();
+        return this.minValue;
     }
 }
 
